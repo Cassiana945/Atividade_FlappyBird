@@ -30,7 +30,6 @@ score_sfx = pygame.mixer.Sound("../sounds/score.wav")
 
 # Load Images
 tree_up_img = pygame.image.load("../images/trees_up.png")
-tree_down_img = pygame.image.load("../images/trees_down.png")
 ground_img = pygame.image.load("../images/ground.png")
 
 
@@ -58,7 +57,8 @@ def game():
     ground_x_pos = 0
 
     bird = Bird(50, 104)
-    trees = [Tree(288, random.randint(80, 180), 130, 2.4)]
+    trees = [Tree(288, random.randint(80, 160), 2.4)]
+
     animation_counter = 0
 
     while game_state != 0:
@@ -89,24 +89,20 @@ def game():
 
                 for tree in trees:
                     tree_width = tree_up_img.get_width()
-                    tree_top_height = tree.height
-                    tree_gap = tree.gap
-                    tree_bottom_y = tree_top_height + tree_gap
+                    tree_bottom_rect = pygame.Rect(tree.x, tree.height, tree_width, window_h - tree.height)
 
-                    tree_top_rect = pygame.Rect(tree.x, 0, tree_width, tree_top_height)
-                    tree_bottom_rect = pygame.Rect(tree.x, tree_bottom_y, tree_width, window_h - tree_bottom_y)
-
-                    if bird_rect.colliderect(tree_top_rect) or bird_rect.colliderect(tree_bottom_rect):
+                    if bird_rect.colliderect(tree_bottom_rect):
                         bird = Bird(168, 300)
-                        trees = [Tree(600, random.randint(30, 250), 220, 2.4)]
+                        trees = [Tree(600, random.randint(30, 250), 2.4)]
                         score = 0
                         has_moved = False
                         animation_counter = 0
                         pygame.mixer.Sound.play(slap_sfx)
 
-                if bird.y < -64 or bird.y > 536:
+
+                if bird.y < -64 or bird.y > 208:
                     bird = Bird(168, 300)
-                    trees = [Tree(600, random.randint(30, 250), 220, 2.4)]
+                    trees = [Tree(600, random.randint(30, 250),  2.4)]
                     score = 0
                     has_moved = False
                     animation_counter = 0
@@ -117,7 +113,7 @@ def game():
 
                 if trees[0].x < -tree_up_img.get_width():
                     trees.pop(0)
-                    trees.append(Tree(400, random.randint(30, 280), 220, 2.4))
+                    trees.append(Tree(400, random.randint(30, 280),  2.4))
 
 
                 for tree in trees:
@@ -139,8 +135,8 @@ def game():
             screen.fill("blue")
             screen.blit(bg_img, (bg_x_pos, 0))
             screen.blit(bg_img, (bg_x_pos + bg_width, 0))
-            screen.blit(ground_img, (ground_x_pos, 536))
-            screen.blit(ground_img, (ground_x_pos + bg_width, 536))
+            screen.blit(ground_img, (ground_x_pos, 208))
+            screen.blit(ground_img, (ground_x_pos + bg_width, 208))
 
             for tree in trees:
                 tree.draw(screen)
