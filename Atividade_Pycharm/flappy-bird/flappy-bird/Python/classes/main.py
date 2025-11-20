@@ -57,8 +57,8 @@ def game():
     bg_x_pos = 0
     ground_x_pos = 0
 
-    bird = Bird(80, 256)
-    trees = [Tree(288, random.randint(80, 350), 130, 2.4)]
+    bird = Bird(50, 104)
+    trees = [Tree(288, random.randint(80, 180), 130, 2.4)]
     animation_counter = 0
 
     while game_state != 0:
