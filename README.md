@@ -1,1 +1,1 @@
-Aperte o botão "espaço" para jogar
+Jogo Flappy Bird com Algoritmo Genético usando NEAT
